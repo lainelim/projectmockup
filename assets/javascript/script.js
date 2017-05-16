@@ -4,7 +4,7 @@ var dataSet = [
   [40, 657012], [41,718656]
 ]
 
-document.getElementById("networthCal").addEventListener("click", function() {
+document.getElementById("networthbtn").addEventListener("click", function() {
 
 
 google.charts.load('current', {packages: ['corechart', 'line']});
@@ -28,7 +28,11 @@ function drawBackgroundColor() {
         backgroundColor: '#ffffff',
         pointShape: 'diamond',
         pointSize: 5,
-        colors: ['#EF851C']
+        colors: ['#EF851C'],
+        chartArea:{top:80},
+        title: 'Net Worth Projection'
+
+
       };
 
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
