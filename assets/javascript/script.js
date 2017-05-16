@@ -19,7 +19,7 @@ myCPFContribution: function (years) {
 //disposableincome at nth year
 myDisposableIncome: function (years) {
   // after expenditure
-  let expenditure = +$('#expenditure')[0].value
+  let expenditure = +$('#expenditure')[0].value/100
 
   return (this.myAnnualSalary(years) - this.myCPFContribution(years)) * (1 - expenditure)
 },
@@ -31,8 +31,8 @@ employerCPFContribution: function (years) {
 
 // calculator
 myBankSavings: function (years) {
-  let percentageSaved = +$('#savings')[0].value,
-      savingsRate = +$('#savingsRate')[0].value
+  let percentageSaved = +$('#savings')[0].value/100,
+      savingsRate = +$('#savingsRate')[0].value/100
 
   if (years === 0) {
     return this.myDisposableIncome(years) * percentageSaved * (1+savingsRate)
@@ -42,7 +42,7 @@ myBankSavings: function (years) {
 },
 
 myCPFSavings: function (years) {
-  let cpfRate = +$('#cpfRate')[0].value
+  let cpfRate = +$('#cpfRate')[0].value/100
 
   if (years === 0) {
     return (this.myCPFContribution(years) + this.employerCPFContribution(years)) * (1+cpfRate)
@@ -52,8 +52,8 @@ myCPFSavings: function (years) {
 },
 
 myCashSavings: function (years) {
-  let cashRate = +$('#cashRate')[0].value
-      percentageCash = 1 - $('#savings')[0].value
+  let cashRate = +$('#cashRate')[0].value/100
+      percentageCash = 1 - $('#savings')[0].value/100
 
   if (years === 0) {
     return this.myDisposableIncome(years)* percentageCash * (1+cashRate)
@@ -69,7 +69,7 @@ myTotalNetworth: function () {
 
     let numWorkingYears = retireAge - startAge,
     numRetirementYears = deathAge - retireAge,
-    savingsRate = +$('#savingsRate')[0].value,
+    savingsRate = +$('#savingsRate')[0].value/100,
     bankSavingsPerYear = []
 
     for (var numYears = 0; numYears <= numWorkingYears; numYears++) {
@@ -86,7 +86,7 @@ myTotalNetworth: function () {
 
     let numWorkingYears = retireAge - startAge,
     numRetirementYears = deathAge - retireAge,
-    cpfRate = +$('#cpfRate')[0].value,
+    cpfRate = +$('#cpfRate')[0].value/100,
     cpfSavingsPerYear = []
 
     for (var numYears = 0; numYears <= numWorkingYears; numYears++) {
@@ -94,7 +94,6 @@ myTotalNetworth: function () {
     }
 
     for (var n = 1; n <= numRetirementYears; n++) {
-      console.log("cpf savings after retirement", cpfSavingsPerYear[cpfSavingsPerYear.length-1])
       cpfSavingsPerYear.push(cpfSavingsPerYear[cpfSavingsPerYear.length-1]*(1+cpfRate))
     }
     return cpfSavingsPerYear
@@ -104,7 +103,7 @@ myTotalNetworth: function () {
 
     let numWorkingYears = retireAge - startAge,
     numRetirementYears = deathAge - retireAge,
-    cashRate = +$('#cashRate')[0].value,
+    cashRate = +$('#cashRate')[0].value/100,
     accumulatedCashPerYear = []
 
     for (var numYears = 0; numYears <= numWorkingYears; numYears++) {
@@ -138,6 +137,54 @@ myTotalNetworth: function () {
 }
 }
 
+window.addEventListener('DOMContentLoaded', function () {
+
+  var dataSet = helperFunctions.myTotalNetworth()
+
+  google.charts.load('current', {packages: ['corechart', 'line']});
+  google.charts.setOnLoadCallback(drawBackgroundColor);
+
+  function drawBackgroundColor() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Years');
+        data.addColumn('number', 'Net Worth');
+
+
+        data.addRows([
+        [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
+        [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
+        [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
+        [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
+        [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
+        [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
+        [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
+        [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
+        [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
+        [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
+        [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
+        [66, 70], [67, 72], [68, 75], [69, 400]
+      ]);
+;
+
+        var options = {
+          hAxis: {
+            title: 'Age'
+          },
+          vAxis: {
+            title: 'Net Worth',
+          },
+          backgroundColor: '#ffffff',
+          colors: ['#d3d3d3'],
+          title: 'Net Worth Projection',
+          chartArea:{width:'80%',height:'75%'},
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+})
+
 
 
 document.getElementById("networthbtn").addEventListener("click", function() {
@@ -167,7 +214,12 @@ document.getElementById("networthbtn").addEventListener("click", function() {
           pointShape: 'diamond',
           pointSize: 5,
           colors: ['#EF851C'],
-          title: 'Net Worth Projection'
+          title: 'Net Worth Projection',
+          animation:{
+        duration: 400,
+        easing: 'linear',
+        startup: true
+      }
 
 
         };
