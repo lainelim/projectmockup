@@ -1,5 +1,5 @@
 // helper functions
-
+function helperFunctions () {
 //function that returns the annual salary at nth year (years === nth)
 function myAnnualSalary (years) {
   let monthlySalary = +$('#monthlySalary').value,
@@ -138,3 +138,6 @@ function myTotalNetworth () {
 
   return dataTable
 }
+}
+
+module.exports = helperFunctions
