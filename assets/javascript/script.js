@@ -176,7 +176,9 @@ window.addEventListener('DOMContentLoaded', function () {
           backgroundColor: '#ffffff',
           colors: ['#d3d3d3'],
           title: 'Net Worth Projection',
-          chartArea:{width:'80%',height:'75%'},
+          // chartArea:{width:'80%',height:'75%'},
+          height: '100%',
+          width: '100%'
 
         };
 
@@ -224,7 +226,18 @@ document.getElementById("networthbtn").addEventListener("click", function() {
 
         };
 
+        function placeMarker(data) {
+          var cli = chart.getChartLayoutInterface();
+          var chartArea = cli.getChartAreaBoundingBox();
+          document.querySelector('.overlay-marker').style.top = Math.floor(cli.getYLocation(dataSet[dataSet.length-1][1]))+ "px";
+          document.querySelector('.overlay-marker').style.left = Math.floor(cli.getXLocation(dataSet[dataSet.length-1][0]))+ "px";
+          document.querySelector('.overlay-marker').append(12)
+        };
+
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         chart.draw(data, options);
+        placeMarker(dataSet);
+
+
       }
 });
