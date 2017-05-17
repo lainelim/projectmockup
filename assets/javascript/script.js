@@ -129,7 +129,7 @@ myTotalNetworth: function () {
   })
 
   for (var age=startAge; age <= deathAge; age++) {
-    var yearlyData = [age, totalNetworthArr[age -startAge]]
+    var yearlyData = [age, mySavingsArr[age - startAge], myCPFArr[age - startAge], myCashArr[age - startAge], totalNetworthArr[age -startAge]]
     dataTable.push(yearlyData)
   }
 
@@ -197,7 +197,10 @@ document.getElementById("networthbtn").addEventListener("click", function() {
   function drawBackgroundColor() {
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Years');
-        data.addColumn('number', 'Net Worth');
+        data.addColumn('number', 'Savings');
+        data.addColumn('number', 'CPF');
+        data.addColumn('number', 'Cash');
+        data.addColumn('number', 'Total');
 
 
         data.addRows(dataSet);
@@ -207,7 +210,7 @@ document.getElementById("networthbtn").addEventListener("click", function() {
             title: 'Age'
           },
           vAxis: {
-            title: 'Net Worth',
+            title: 'SGD',
             format: 'currency'
           },
           backgroundColor: '#ffffff',
