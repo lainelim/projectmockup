@@ -2,6 +2,11 @@
     font-family: 'Raleway'
 }
 
+.overlay-marker{
+  font-weight: 900;
+  color: #00BA0C
+}
+
 .page-header {
   border-bottom: 3px solid #568259;
 }
