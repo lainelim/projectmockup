@@ -3,5 +3,13 @@
 }
 
 .page-header {
-  border-bottom: 3px solid #cca43b;
+  border-bottom: 3px solid #568259;
+}
+
+.panel {
+    border: 0;
+}
+
+.panel-default > .panel-heading-custom {
+    background: #2E4052; color: #fff;
 }

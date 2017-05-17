@@ -20,13 +20,14 @@
     </div>
 
     <div id="networthcal">
-      <div class="row">
-      <div class="col-md-3">
+      <div class="container">
+      <div class="col-md-12">
           <div class="panel panel-default">
-      <div class="panel-heading">
+      <div class="panel-heading panel-heading-custom">
         <h3 class="panel-title text-center">Enter the parameters below for a networth projection</h3>
       </div>
       <div class="panel-body">
+        <div class="col-md-4">
         <div class="input-group input-group-sm">
         <span class="input-group-addon" id="basic-addon1">Start Age</span>
         <input type="text" class="form-control" id="startAge" placeholder="Start Age" value=28 min="1" max="100"aria-describedby="basic-addon1">
@@ -39,6 +40,8 @@
         <span class="input-group-addon" id="basic-addon1">Monthly Salary</span>
         <input type="text" class="form-control" id="monthlySalary" placeholder="Salary" value=3000 aria-describedby="basic-addon1">
       </div>
+    </div>
+    <div class="col-md-4">
       <div class="input-group input-group-sm">
         <span class="input-group-addon" id="basic-addon1">Annual Increment</span>
         <input type="text" class="form-control" id="annualIncrement" placeholder="e.g 2%" value=2 min="1" max="100"aria-describedby="basic-addon1">
@@ -51,6 +54,8 @@
         <span class="input-group-addon" id="basic-addon1">Savings</span>
         <input type="text" class="form-control" id="savings" placeholder="e.g 50%" value=50 min="0" max="100" aria-describedby="basic-addon1">
       </div>
+    </div>
+    <div class="col-md-4">
       <div class="input-group input-group-sm">
         <span class="input-group-addon" id="basic-addon1">CPF Interest Rate</span>
         <input type="text" class="form-control" id="cpfRate" placeholder="e.g 3%" value=3 min="0" max="100" aria-describedby="basic-addon1">
@@ -63,18 +68,23 @@
         <span class="input-group-addon" id="basic-addon1">Interest Rate on Cash </span>
         <input type="text" class="form-control" id="cashRate" placeholder="e.g 0.01%" value=0 min="0" max="100" aria-describedby="basic-addon1">
       </div>
-    </br>
-      <button type="button" class="btn btn-danger btn-sm" name="button" id="networthbtn">Submit</button>
       </div>
     </div>
     </div>
-    <div class="col-md-9">
-    </br></br>
-      <div id="chart_div"></div>
-    </div>
+    <div class="col-md-12 text-center">
+    <button type="button" class="btn btn-success btn-sm" name="button" id="networthbtn">Submit</button>
+  </div>
   </div>
 </div>
 
+<div class="col-md-8 text-center">
+</br></br>
+  <div id="chart_div"></div>
+</div>
+<div class="col-md-4 text-center">
+</br></br>
+<div id="pie-chart"></div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
