@@ -147,14 +147,26 @@ assetBreakdown: function(){
   return pieChartData
 
 }
+
 }
+
+Number.prototype.formatMoney = function(c, d, t){
+var n = this,
+    c = isNaN(c = Math.abs(c)) ? 2 : c,
+    d = d == undefined ? "." : d,
+    t = t == undefined ? "," : t,
+    s = n < 0 ? "-" : "",
+    i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
 
 document.getElementById("networthbtn").addEventListener("click", function() {
 
   document.getElementById('networthbtn').innerHTML = "Re-Calculate"
 
   var dataSet = helperFunctions.myTotalNetworth()
-  var totalNetworth = dataSet[dataSet.length - 1].reduce(function(x,y){return x+y}) - 100
+  var totalNetworth = (dataSet[dataSet.length - 1].reduce(function(x,y){return x+y}) - 100).formatMoney(2, '.', ',');
 
 
   google.charts.load('current', {packages: ['corechart']});
@@ -197,7 +209,7 @@ document.getElementById("networthbtn").addEventListener("click", function() {
        var chartArea = cli.getChartAreaBoundingBox();
       //  document.querySelector('.overlay-marker').style.top = Math.floor(cli.getYLocation(dataTable.getValue(5, 1))) - 50 + "px";
       //  document.querySelector('.overlay-marker').style.left = Math.floor(cli.getXLocation(5)) - 10 + "px";
-       document.querySelector('.overlay-marker').innerHTML = "Total Networth at Age 100: $" + totalNetworth.toFixed(2);
+       document.querySelector('.overlay-marker').innerHTML = "Total Networth at Age 100: $" + totalNetworth;
      };
 
 
